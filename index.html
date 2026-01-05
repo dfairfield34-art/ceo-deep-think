@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO Deep Think - Executive Advisory Board</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            border: 2px solid #00d9ff;
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #00d9ff, #00ffcc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+        }
+
+        .header p {
+            color: #b0b0b0;
+            font-size: 1.2em;
+        }
+
+        .venture-tag {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid #00d9ff;
+            border-radius: 25px;
+            color: #00d9ff;
+            font-weight: 600;
+        }
+
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            padding: 12px 30px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #00d9ff;
+            border-radius: 10px;
+            color: #00d9ff;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        .mode-btn:hover, .mode-btn.active {
+            background: rgba(0, 217, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #00d9ff;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid #00d9ff;
+            padding-bottom: 10px;
+        }
+
+        .executives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .exec-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #00d9ff;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exec-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00d9ff, #00ffcc, #00d9ff);
+            border-radius: 15px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s;
+        }
+
+        .exec-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.4);
+        }
+
+        .exec-card:hover::before {
+            opacity: 0.3;
+        }
+
+        .exec-initial {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00d9ff, #00ffcc);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .exec-name {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .exec-title {
+            color: #00d9ff;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .exec-expertise {
+            color: #b0b0b0;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .sample-questions {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid #00d9ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .question-item {
+            background: rgba(0, 217, 255, 0.05);
+            border-left: 3px solid #00d9ff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .question-item:hover {
+            background: rgba(0, 217, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #00ffcc;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.3);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .executives-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CEO DEEP THINK</h1>
+            <p>Executive Advisory Board - Strategic Consultation Platform</p>
+            <div class="venture-tag">ACTIVE VENTURE: 1VIBE.AI</div>
+        </div>
+
+        <div class="mode-selector">
+            <button class="mode-btn active" onclick="showMode('all')">Board Room</button>
+            <button class="mode-btn" onclick="showMode('individual')">Individual Advisors</button>
+            <button class="mode-btn" onclick="showMode('portfolio')">Full Portfolio</button>
+            <button class="mode-btn" onclick="showMode('questions')">Sample Questions</button>
+        </div>
+
+        <div id="boardRoom" class="section">
+            <h2 class="section-title">E-Suite Leadership</h2>
+            <div class="executives-grid">
+                <div class="exec-card" onclick="consultAdvisor('bezos')">
+                    <div class="exec-initial">JB</div>
+                    <div class="exec-name">Jeff Bezos</div>
+                    <div class="exec-title">CEO</div>
+                    <div class="exec-expertise">Customer obsession, Day 1 mentality, long-term thinking</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('musk')">
+                    <div class="exec-initial">EM</div>
+                    <div class="exec-name">Elon Musk</div>
+                    <div class="exec-title">CTO</div>
+                    <div class="exec-expertise">First principles, 10x moonshots, rapid iteration</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('ahuja')">
+                    <div class="exec-initial">DA</div>
+                    <div class="exec-name">Deepak Ahuja</div>
+                    <div class="exec-title">CFO</div>
+                    <div class="exec-expertise">Financial strategy, capital efficiency, scaling operations</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('sandberg')">
+                    <div class="exec-initial">SS</div>
+                    <div class="exec-name">Sheryl Sandberg</div>
+                    <div class="exec-title">COO</div>
+                    <div class="exec-expertise">Operations excellence, team building, business growth</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('hormozi')">
+                    <div class="exec-initial">AH</div>
+                    <div class="exec-name">Alex Hormozi</div>
+                    <div class="exec-title">CMO</div>
+                    <div class="exec-expertise">Value creation, offer design, scaling marketing</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('newcomb')">
+                    <div class="exec-initial">MN</div>
+                    <div class="exec-name">Matthew Newcomb</div>
+                    <div class="exec-title">VP</div>
+                    <div class="exec-expertise">Strategic execution, venture development</div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Strategic Advisors</h2>
+            <div class="executives-grid">
+                <div class="exec-card" onclick="consultAdvisor('ralston')">
+                    <div class="exec-initial">CR</div>
+                    <div class="exec-name">Caleb Ralston</div>
+                    <div class="exec-title">RPN Advisor</div>
+                    <div class="exec-expertise">Network strategies, relationship capital</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('vee')">
+                    <div class="exec-initial">GV</div>
+                    <div class="exec-name">Gary Vaynerchuk</div>
+                    <div class="exec-title">Marketing Advisor</div>
+                    <div class="exec-expertise">Social media, content marketing, personal branding</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('isenberg')">
+                    <div class="exec-initial">GI</div>
+                    <div class="exec-name">Greg Isenberg</div>
+                    <div class="exec-title">Product Advisor</div>
+                    <div class="exec-expertise">Community-led growth, product strategy</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('hoffman')">
+                    <div class="exec-initial">RH</div>
+                    <div class="exec-name">Reid Hoffman</div>
+                    <div class="exec-title">Strategy Advisor</div>
+                    <div class="exec-expertise">Network effects, blitzscaling, venture strategy</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('campbell')">
+                    <div class="exec-initial">BC</div>
+                    <div class="exec-name">Bill Campbell</div>
+                    <div class="exec-title">Leadership Advisor</div>
+                    <div class="exec-expertise">Team coaching, leadership development</div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Legal Counsel</h2>
+            <div class="executives-grid">
+                <div class="exec-card" onclick="consultAdvisor('gasner')">
+                    <div class="exec-initial">AG</div>
+                    <div class="exec-name">Adam Gasner</div>
+                    <div class="exec-title">Fenwick & West</div>
+                    <div class="exec-expertise">Corporate law, venture financing, intellectual property</div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Technical Board - Led by Elon Musk</h2>
+            <div class="executives-grid">
+                <div class="exec-card" onclick="consultAdvisor('pachocki')">
+                    <div class="exec-initial">JP</div>
+                    <div class="exec-name">Jakub Pachocki</div>
+                    <div class="exec-title">AI Researcher</div>
+                    <div class="exec-expertise">Deep learning, AI architecture</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('chintala')">
+                    <div class="exec-initial">SC</div>
+                    <div class="exec-name">Soumith Chintala</div>
+                    <div class="exec-title">AI Infrastructure</div>
+                    <div class="exec-expertise">PyTorch, deep learning frameworks</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('dean')">
+                    <div class="exec-initial">JD</div>
+                    <div class="exec-name">Jeff Dean</div>
+                    <div class="exec-title">Systems Architect</div>
+                    <div class="exec-expertise">Large-scale systems, distributed computing</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('vanhoucke')">
+                    <div class="exec-initial">VV</div>
+                    <div class="exec-name">Vincent Vanhoucke</div>
+                    <div class="exec-title">Computer Vision</div>
+                    <div class="exec-expertise">Machine learning, visual recognition</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('raibert')">
+                    <div class="exec-initial">MR</div>
+                    <div class="exec-name">Marc Raibert</div>
+                    <div class="exec-title">Robotics</div>
+                    <div class="exec-expertise">Advanced robotics, dynamic systems</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('rus')">
+                    <div class="exec-initial">DR</div>
+                    <div class="exec-name">Daniela Rus</div>
+                    <div class="exec-title">Robotics Research</div>
+                    <div class="exec-expertise">Autonomous systems, distributed robotics</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('kuehmann')">
+                    <div class="exec-initial">CK</div>
+                    <div class="exec-name">Charles Kuehmann</div>
+                    <div class="exec-title">Materials Science</div>
+                    <div class="exec-expertise">Advanced materials, manufacturing innovation</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('ho')">
+                    <div class="exec-initial">CH</div>
+                    <div class="exec-name">Colin Ho</div>
+                    <div class="exec-title">AI Engineering</div>
+                    <div class="exec-expertise">Applied AI, engineering systems</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('li')">
+                    <div class="exec-initial">FL</div>
+                    <div class="exec-name">Fei-Fei Li</div>
+                    <div class="exec-title">AI Vision</div>
+                    <div class="exec-expertise">Computer vision, cognitive neuroscience</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('tuckute')">
+                    <div class="exec-initial">GT</div>
+                    <div class="exec-name">Greta Tuckute</div>
+                    <div class="exec-title">Neuroscience AI</div>
+                    <div class="exec-expertise">Neural networks, cognitive science</div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Frontier AI Advisors</h2>
+            <div class="executives-grid">
+                <div class="exec-card" onclick="consultAdvisor('dario')">
+                    <div class="exec-initial">DA</div>
+                    <div class="exec-name">Dario Amodei</div>
+                    <div class="exec-title">Anthropic CEO</div>
+                    <div class="exec-expertise">AI safety, large language models</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('daniela')">
+                    <div class="exec-initial">DA</div>
+                    <div class="exec-name">Daniela Amodei</div>
+                    <div class="exec-title">Anthropic President</div>
+                    <div class="exec-expertise">Operations, responsible AI deployment</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('gomez')">
+                    <div class="exec-initial">AG</div>
+                    <div class="exec-name">Aidan Gomez</div>
+                    <div class="exec-title">Cohere CEO</div>
+                    <div class="exec-expertise">Transformers, enterprise AI</div>
+                </div>
+
+                <div class="exec-card" onclick="consultAdvisor('srinivas')">
+                    <div class="exec-initial">AS</div>
+                    <div class="exec-name">Aravind Srinivas</div>
+                    <div class="exec-title">Perplexity CEO</div>
+                    <div class="exec-expertise">Search AI, information retrieval</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sampleQuestions" class="section hidden">
+            <h2 class="section-title">Sample Consultation Questions</h2>
+            <div class="sample-questions">
+                <div class="question-item">How do I scale 1Vibe.AI from MVP to 10,000 users?</div>
+                <div class="question-item">What's the best go-to-market strategy for Fairfield Media?</div>
+                <div class="question-item">How should I structure cross-venture synergies across my portfolio?</div>
+                <div class="question-item">What's the optimal funding strategy for scaling operations?</div>
+                <div class="question-item">How do I build and retain a world-class AI engineering team?</div>
+                <div class="question-item">What are the key metrics I should track for SaaS growth?</div>
+                <div class="question-item">How can I leverage AI to enhance JourneyHer's impact?</div>
+                <div class="question-item">What's the best approach to monetize Turn the Page nonprofit initiatives?</div>
+            </div>
+        </div>
+
+        <div id="portfolio" class="section hidden">
+            <h2 class="section-title">Full Venture Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <h3>1Vibe Studio/AI</h3>
+                    <p>AI-powered creative platform</p>
+                </div>
+                <div class="portfolio-card">
+                    <h3>Fairfield Media</h3>
+                    <p>Media production & content</p>
+                </div>
+                <div class="portfolio-card">
+                    <h3>Clothing Brands</h3>
+                    <p>Fashion & apparel ventures</p>
+                </div>
+                <div class="portfolio-card">
+                    <h3>JourneyHer</h3>
+                    <p>Women's empowerment platform</p>
+                </div>
+                <div class="portfolio-card">
+                    <h3>Turn the Page</h3>
+                    <p>Educational nonprofit</p>
+                </div>
+                <div class="portfolio-card">
+                    <h3>Publishing Division</h3>
+                    <p>Content & publishing services</p>
+                </div>
+            </div>
+            <div style="margin-top: 30px; padding: 20px; background: rgba(0, 217, 255, 0.1); border-radius: 15px; border: 2px solid #00d9ff;">
+                <h3 style="color: #00d9ff; margin-bottom: 15px;">SaaS Potential</h3>
+                <p>Transform this advisory board into a subscription-based platform with onboarding, personalized insights, and cross-venture recommendations.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showMode(mode) {
+            const sections = {
+                'all': ['boardRoom'],
+                'individual': ['boardRoom'],
+                'portfolio': ['portfolio'],
+                'questions': ['sampleQuestions']
+            };
+
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            if (sections[mode]) {
+                sections[mode].forEach(sectionId => {
+                    document.getElementById(sectionId).classList.remove('hidden');
+                });
+            }
+
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function consultAdvisor(advisorId) {
+            alert(`Consulting with ${advisorId}... This would integrate with Claude API to provide strategic advice from this advisor's perspective.`);
+        }
+    </script>
+</body>
+</html>

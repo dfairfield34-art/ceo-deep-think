@@ -1,0 +1,19 @@
+{
+  "name": "ceo-deep-think",
+  "version": "1.0.0",
+  "description": "Executive Advisory Board - Strategic Consultation Platform",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "advisory",
+    "consulting",
+    "executive",
+    "strategy",
+    "AI"
+  ],
+  "author": "Fairfield Ventures",
+  "license": "MIT"
+}
